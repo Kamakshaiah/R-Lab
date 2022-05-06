@@ -1,0 +1,28 @@
+sl,outcomes ,structure,process
+1,cured,proper,fair
+2,indifferent,improper,unfair
+3,cured,improper,unfair
+4,not cured,proper,fair
+5,indifferent,proper,unfair
+6,not cured,improper,fair
+7,indifferent,proper,unfair
+8,indifferent,improper,fair
+9,not cured,proper,unfair
+10,cured,improper,fair
+11,indifferent,improper,unfair
+12,not cured,improper,fair
+13,cured,proper,fair
+14,indifferent,proper,unfair
+15,indifferent,proper,fair
+16,indifferent,improper,unfair
+17,cured,improper,fair
+18,cured,improper,fair
+19,indifferent,improper,unfair
+20,cured,proper,fair
+21,not cured,proper,unfair
+22,not cured,proper,fair
+23,not cured,proper,fair
+24,cured,proper,unfair
+25,cured,improper,fair
+26,not cured,proper,unfair
+27,not cured,improper,fair

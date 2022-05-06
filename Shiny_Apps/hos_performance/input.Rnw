@@ -1,0 +1,15 @@
+\documentclass{article}
+
+\begin{document}
+
+<<echo=FALSE>>=
+if (input$indata == "full"){
+       print(df)
+     } else {
+       print(df[input$cols])
+     }
+     
+    
+@
+
+\end{document}
