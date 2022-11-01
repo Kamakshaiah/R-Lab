@@ -74,17 +74,27 @@ calc_credit <- function(customer){
   if(customer %in% data_base[, 1]){
     cust_data <- subset(data_base, data_base['customers'] == customer)
     if (cust_data['pur_amt'][1, ] > 100 & cust_data['pur_amt'][1, ] < 200){
-      credit <- cust_data['pur_amt'][1, ] * 0.1
+      credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.1
       return(credit)
     } else if (cust_data['pur_amt'][1, ] > 200 & cust_data['pur_amt'][1, ] < 300){
-      credit <- cust_data['pur_amt'][1, ] * 0.1
+      credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.2
       return(credit)
+    } else if (cust_data['pur_amt'][1, ] > 300) {
+      credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.3
+      return(credit)
+    }
+    
+    else {
+      print('No credits possible...')
     }
   }
   # return(credit)
 }
 
+print(calc_credit('C'))
 print(calc_credit('A'))
+print(calc_credit('B'))
+print(calc_credit('D'))
 
 credits <- mapply(calc_credit, customers)
 
