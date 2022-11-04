@@ -1,8 +1,11 @@
+# data simulation
+
 customers <- LETTERS[1:10]
 pur_amt <- round(runif(10)*1000)
 
 data_base <- data.frame(customers, pur_amt)
-# data_base
+
+# transaction
 
 add_transaction <- function(customer, amount){
   data_base <<- rbind(data_base, c(customer, amount))
@@ -10,6 +13,8 @@ add_transaction <- function(customer, amount){
 }
 
 add_transaction('Z', 231)
+
+# add customer
 
 add_customer <- function(customer){
   customers <- c(customers, customer)
@@ -19,6 +24,8 @@ add_customer <- function(customer){
 }
 
 add_customer('Z')
+
+# remove customer 
 
 remove_customer <- function(customer){
   data_base <<- data_base[-with(data_base, grep(customer, data_base[, 1])),]
@@ -36,9 +43,11 @@ remove_customer('Z')
 # cust_data['pur_amt'] <-  100
 # cust_data
 # 
-data_base[with(data_base, customers == 'A'), ] # equal to subset
+# data_base[with(data_base, customers == 'A'), ] # equal to subset
 # excludes 'A'
-data_base[!with(data_base, customers == 'A'), ]
+# data_base[!with(data_base, customers == 'A'), ]
+
+# add transaction amount 
 
 add_amount <- function(customer, amount){
   if(customer %in% data_base[, 1]){
@@ -57,29 +66,37 @@ add_amount <- function(customer, amount){
 }
 
 add_amount('Z', 100)
-data_base
+# data_base
 
-calculate_credits <- function(cust, amount){
-  credit <- matrix(NA, 10, 1)
-  for (i in 1:10){
-    if (amount > 10){
-      credit[i] <- amount * 0.01
+# calculation of credits 
+
+calculate_credits <- function(){
+  credits <- vector()
+  amounts <- as.numeric(data_base[,2])
+  for (i in 1:dim(data_base)[1]){
+    
+    if (amounts[i] >= 100){
+      credits[i] <- i * 0.01
+    } else if (amounts[i] > 100 & i <= 500){
+      credits[i] <- i * 0.02
+    } else if (amounts[i] > 500){
+      credits[i] <- i * 0.05
     }
   }
-  data_base['credits'] <- credit
-  return(credit)
+  data_base['credits'] <- credits
+  return(data_base)
 }
 
 calc_credit <- function(customer){
   if(customer %in% data_base[, 1]){
     cust_data <- subset(data_base, data_base['customers'] == customer)
-    if (cust_data['pur_amt'][1, ] > 100 & cust_data['pur_amt'][1, ] < 200){
+    if (cust_data['pur_amt'][1, ] > 100 & cust_data['pur_amt'][1, ] <= 200){
       credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.1
       return(credit)
-    } else if (cust_data['pur_amt'][1, ] > 200 & cust_data['pur_amt'][1, ] < 300){
+    } else if (cust_data['pur_amt'][1, ] > 200 & cust_data['pur_amt'][1, ] < 500){
       credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.2
       return(credit)
-    } else if (cust_data['pur_amt'][1, ] > 300) {
+    } else if (cust_data['pur_amt'][1, ] > 500) {
       credit <- as.numeric(cust_data['pur_amt'][1, ]) * 0.3
       return(credit)
     }
@@ -96,15 +113,16 @@ print(calc_credit('A'))
 print(calc_credit('B'))
 print(calc_credit('D'))
 
-credits <- mapply(calc_credit, customers)
+# credits <- mapply(calc_credit, customers)
 
 # data.frame(customers, pur_amt, credits)
 
-cust_credit <- function(customer){
+cust_details <- function(customer){
   cust_data <- subset(data_base, data_base['customers']==customer)
-  return(cust_data['credits'])
+  return(cust_data)
+  # return(cust_data['credits'])
 }
 
-for (i in 1:dim(data_set)[1]){
-  print(paste[data_set[i, 1], data_set[i, 2]])
+for (i in 1:dim(data_base)[1]){
+  print(paste[data_base[i, 1], data_base[i, 2]])
 }
