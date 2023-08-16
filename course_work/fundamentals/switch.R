@@ -51,3 +51,5 @@ Summaries(1:10, 'sd')
 Summaries(1:10, 'max')
 Summaries(1:10, 'min')
 Summaries(1:10, 'median')
+
+
