@@ -43,6 +43,12 @@ for (i in 1:dim(data)[1]){
 
 gender <- sample(c('male', 'female'), 10, replace = T)
 
+factlevels <- levels(as.factor(gender))
+factlevels[i]
+for (i in 1:2){
+  print(sum(gender == factlevels[i]))
+}
+
 x <- 0; y <- 0
 
 for (i in 1:length(gender)){
