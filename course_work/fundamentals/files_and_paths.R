@@ -1,5 +1,6 @@
 # file system
 ## https://theautomatic.net/2018/07/11/manipulate-files-r/
+# https://sparkbyexamples.com/r-programming/delete-file-or-directory-in-r/#google_vignette
 
 ls()
 list.files() # list.dirs()
