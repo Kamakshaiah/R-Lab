@@ -21,6 +21,14 @@ TRUE & FALSE # works
 
 # below logic works 
 
+for (i in 1:length(x)){
+  if (x[i] == TRUE && y[i] == TRUE){
+    print(TRUE)
+  } else {
+    print(FALSE)
+  }
+}
+
 x <- sample(c(TRUE, FALSE), 1000000, replace = T)
 y <- sample(c(TRUE, FALSE), 1000000, replace = T)
 
