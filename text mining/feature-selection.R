@@ -20,3 +20,6 @@ min(apply(dataf, 2, mean)) # -0.1556151
 
 plot(c(apply(dataf, 2, mean), mean(apply(dataf, 2, mean))))
 plot(c(apply(dataf, 2, mean), 0.05622998)); text(c(apply(dataf, 2, mean), mean(apply(dataf, 2, mean))), labels = c('x1', 'x2', 'x3', 'x4', 'gm'), pos = 2)
+
+subset(dataf, select = which(apply(dataf, 2, mean) > 0.056))
+subset(dataf, select = which(apply(dataf, 2, mean) > -0.009256273))
