@@ -12,26 +12,27 @@ c <- sum(x <= 150)
 d <- sum(x <= 200)
 e <- sum(x <= 250)
 
-# bin vector
+# 1. R way
 
-myf <- c(a, b, c, d, e)
-bin <- c("0 to 50", "50 to 100", "100 to 150", "150 to 200", "200 to 250")
-mydf <- cbind.data.frame(bin, myf)
-myfd <- c(myf[-1], 0)
-freq <- myfd - myf
-freq <- c(myf[1], freq[-5])
+myfreqs <- c(a, b, c, d, e)
+bins <- c("0 to 50", "50 to 100", "100 to 150", "150 to 200", "200 to 250")
+mydf <- cbind.data.frame(bins, myf)
+myfd <- c(myfreqs[-1], 0)
+cbind(myfd, myfreqs)
+freq <- myfd - myfreqs
+freqch <- c(myfreqs[1]-1, freq[-5])
 
-mydfreq <- cbind.data.frame(bin, freq)
+mydfreq <- cbind.data.frame(bins, freqch)
 # check 
 
 sum(freq)
 
 # export to CSV format
 
-write.csv(mydf, "/media/hi/C2ACA28AACA278951/Windows/work/R/mydf.csv")
+# write.csv(mydf, "/media/hi/C2ACA28AACA278951/Windows/work/R/mydf.csv")
 
 
-## Freq. distribution using loops and conditions
+## 2. Freq. distribution using loops and conditions
 
 bin <- matrix(NA, 5, 1)
 a=0; b=0; c=0; d=0; e=0
@@ -48,4 +49,19 @@ cfreq
 sum(cfreq)
 
 hist(cfreq, freq = FALSE); lines(density(cfreq), col = "red")
+
+# 3. cut function 
+
+xcats <- cut(x, c(0, 50, 100, 150, 200, 250))
+table(xcats)
+
+xcatsdf <- data.frame(table(xcats))
+names(xcatsdf)
+xcatsdf['Freq']
+xcatsdf['xcats']
+
+is.numeric(xcatsdf['Freq']) # non-numeric
+is.numeric(xcatsdf$Freq) # numeric its a list
+is.numeric(xcatsdf[, 'Freq']) # numeric its a list
+hist(xcatsdf$Freq, freq = F)
 
