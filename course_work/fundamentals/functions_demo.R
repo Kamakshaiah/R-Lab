@@ -250,13 +250,13 @@ arithmeticcalc <- function(x, y, type = NULL){
   } 
 }
 
-arithmeticcalc <- function(x, y, type = NULL){
+arithmeticcalculator <- function(x, y, type = NULL){
   
   if(is.null(type)){
     print('check your args')
     
   } else if(type == 'add'){
-    return(x - y)
+    return(x + y)
   } else if(type == 'sub'){
     return(x - y)
   } else if(type == 'mul'){
@@ -271,7 +271,8 @@ arithmeticcalc <- function(x, y, type = NULL){
 
 # test function 
 
-arithmeticcalc(1, 2, type = 'xyz')
-arithmeticcalc(1, 2)
+arithmeticcalculator(1, 2) # [1] "check your args"
+arithmeticcalculator(1, 2, type = 'add') # it works 
+arithmeticcalculator(1, 2, type = 'abc') # [1] "Good bye!"
 
 
