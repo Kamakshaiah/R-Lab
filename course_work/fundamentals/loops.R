@@ -5,7 +5,7 @@ for(i in 1:10){
 }
 
 x <- 0
-repeat{print(x); x = x + 1; if(x >= 10) break}
+repeat{print(x); if(x >= 10) break; x = x + 1}
 
 x <- 0
 while(x <= 10){
@@ -41,7 +41,7 @@ for (i in 1:dim(data)[1]){
 
 # frequency tables
 
-gender <- sample(c('male', 'female'), 10, replace = T)
+gender <- factor(sample(c('male', 'female'), 10, replace = T))
 
 factlevels <- levels(as.factor(gender))
 factlevels[i]
@@ -64,18 +64,20 @@ print(c(male = x, female = y))
 
 table(gender)
 
-Table <- function(fact){
+Table <- function(fact, levs = NULL){
+  
+  n <- length(fact)
   x <- 0; y <- 0
   
-  for (i in 1:length(gender)){
-    if (gender[i] == 'male'){
+  for (i in 1:n){
+    if (fact[i] == "male"){
       x <- x + 1
     } else {
       y <- y + 1
     }
   }
   
-  print(c(male = x, female = y))
+  print(c(x, y))
   
 }
 

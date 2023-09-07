@@ -185,3 +185,93 @@ kurtosis <- function(v){
 
 kurtosis(rnorm(10))
 
+# managing outputs
+## use string formatting for outputs?
+
+arithmeticaverage <- function(x){
+  
+  # calculations
+  numer <- round(sum(x), 3)
+  denom <- round(length(x), 3)
+  out <- round(numer/denom, 3)
+  
+  #output 
+  cat('sum', '\t', 'n', '\t', 'mean', '\n',
+      numer, '\t', denom, '\t', out
+      )
+}
+
+arithmeticaverage(rnorm(10))
+
+arithmeticaverage <- function(x, output = NULL){
+  
+  # calculations
+  numer <- round(sum(x), 3)
+  denom <- round(length(x), 3)
+  out <- round(numer/denom, 3)
+  
+  #output 
+  
+  if(is.null(output)){
+    cat('sum', '\t', 'n', '\t', 'mean', '\n',
+        numer, '\t', denom, '\t', out
+    )
+    
+  } else{
+    return(list(numer, denom, out))  
+  }
+}
+
+arithmeticaverage(rnorm(10))
+arithmeticaverage(rnorm(10), output=T)
+arithmeticaverage(rnorm(10), output=T)[[3]] # for mean
+
+# why list?
+summaries <- as.data.frame(arithmeticaverage(rnorm(10), output=T))
+colnames(summaries) <- c('s', 'n', 'xbar')
+# View(summaries)
+# edit(summaries)
+
+## use NA for output argument in above code 
+
+# NULL arguments
+
+# composite function for arithmetic calculations
+
+arithmeticcalc <- function(x, y, type = NULL){
+  if(type == 'add'){
+    return(x - y)
+  } else if(type == 'sub'){
+    return(x - y)
+  } else if(type == 'mul'){
+    return(x * y)
+  } else if(type == 'div'){
+    return(x / y)
+  } 
+}
+
+arithmeticcalc <- function(x, y, type = NULL){
+  
+  if(is.null(type)){
+    print('check your args')
+    
+  } else if(type == 'add'){
+    return(x - y)
+  } else if(type == 'sub'){
+    return(x - y)
+  } else if(type == 'mul'){
+    return(x * y)
+  } else if(type == 'div'){
+    return(x / y)
+  } else {
+    print('Good bye!')
+  } 
+}
+
+
+# test function 
+
+arithmeticcalc(1, 2, type = 'xyz')
+arithmeticcalc(1, 2)
+
+
