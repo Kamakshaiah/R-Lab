@@ -51,3 +51,5 @@ plot(finaldf)
 
 summaryofdf <- sapply(finaldf, function(x) c(summary(finaldf), type = class(finaldf)))
 write.csv(summaryofdf, 'summary.csv')
+
+# xtabs(finaldf$gender ~ ., data = finaldf)
