@@ -40,5 +40,5 @@ iris.pred = predict(iris.tree, newdata = test.set)
 
 table(iris.pred, test.set$species)
 
-rror.rate = round(mean(iris.pred != test.set$species),2)
+error.rate = round(mean(iris.pred != test.set$species),2)
 error.rate

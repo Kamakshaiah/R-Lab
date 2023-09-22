@@ -1,4 +1,4 @@
-library(ISLR)
+library(ISLR) # for Smarket data set
 library(caret)
 
 set.seed(300)
