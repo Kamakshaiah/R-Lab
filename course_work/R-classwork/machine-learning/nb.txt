@@ -1,0 +1,47 @@
+# turning "warnings" off
+options(warn=-1)
+
+default_par = par() # save default par
+
+library("klaR")
+library("caret")
+
+data("iris")
+x = iris[,-5]
+y = iris$Species
+
+library(e1071)
+model = train(x,y,'nb',trControl=trainControl(method='cv',number=10))
+
+model
+
+predict(model$finalModel,x)
+
+predict(model$finalModel,x)$class
+
+table(predict(model$finalModel,x)$class,y)
+
+# “Spam Emails” data set
+
+library('ElemStatLearn')
+library("klaR")
+library("caret")
+
+head(spam)
+
+dim(spam)
+
+index = sample(nrow(spam), floor(nrow(spam) * 0.7)) #70/30 split.
+train = spam[index,]
+test = spam[-index,]
+
+xTrain = train[,-58] # removing y-outcome variable.
+yTrain = train$spam # only y.
+
+xTest = test[,-58]
+yTest = test$spam
+
+model = train(xTrain,yTrain,'nb',trControl=trainControl(method='cv',number=10))
+
+prop.table(table(predict(model$finalModel,xTest)$class,yTest)) # table() gives frequency table, prop.table() gives freq% table.
+

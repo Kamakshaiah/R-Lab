@@ -1,0 +1,8 @@
+gender <- factor(sample(c('male', 'female'), 10, replace = T))
+salary <- round(runif(10))
+age <- round(runif(10))
+education <- factor(sample(c('educated', 'uneducated'), 10, replace = T))
+library(lattice)
+bwplot(gender ~ salary)
+cloud(age ~ education * gender)
+xyplot(age ~ salary | education)

@@ -1,0 +1,46 @@
+# continued from KNN Applying Random Forest to see the performance improvement
+
+set.seed(400)
+ctrl <- trainControl(method="repeatedcv",repeats = 3) #,classProbs=TRUE,summaryFunction = twoClassSummary)
+
+# Random forrest
+
+rfFit <- train(Direction ~ ., data = training, method = "rf", trControl = ctrl, preProcess = c("center","scale"), tuneLength = 20)
+
+rfFit
+
+plot(rfFit)
+
+rfPredict <- predict(rfFit,newdata = testing )
+confusionMatrix(rfPredict, testing$Direction )
+
+mean(rfPredict == testing$Direction)
+
+#With twoclasssummary
+
+ctrl <- trainControl(method="repeatedcv",repeats = 3,classProbs=TRUE,summaryFunction = twoClassSummary)
+
+# Random forrest
+
+rfFit <- train(Direction ~ ., data = training, method = "rf", trControl = ctrl, preProcess = c("center","scale"), tuneLength = 20)
+
+rfFit
+
+plot(rfFit)
+
+plot(rfFit, print.thres = 0.5, type="S")
+
+rfPredict <- predict(rfFit,newdata = testing )
+confusionMatrix(rfPredict, testing$Direction )
+
+mean(rfPredict == testing$Direction)
+
+# Ploting ROC curve
+
+library(pROC)
+rfPredict <- predict(rfFit,newdata = testing , type="prob")
+rfROC <- roc(testing$Direction,rfPredict[,"Down"], levels = rev(testing$Direction))
+rfROC
+
+plot(rfROC, type="S", print.thres= 0.5)
+

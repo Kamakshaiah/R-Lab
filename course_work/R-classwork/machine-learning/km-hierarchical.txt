@@ -1,0 +1,38 @@
+library(stats)
+set.seed(101)
+km <- kmeans(iris[,1:4], 3)
+plot(iris[,1], iris[,2], col=km$cluster)
+points(km$centers[,c(1,2)], col=1:3, pch=19, cex=2)
+
+table(km$cluster, iris$Species)
+
+# Another round:
+
+set.seed(900)
+km <- kmeans(iris[,1:4], 3)
+plot(iris[,1], iris[,2], col=km$cluster)
+points(km$centers[,c(1,2)], col=1:3, pch=19, cex=2)
+
+table(predicted=km$cluster, true=iris$Species)
+
+# HIERARCHICAL 
+
+m <- matrix(1:15,5,3)
+dist(m) # computes the distance between rows of m (since there are 3 columns, it is the euclidian distance between tri-dimensional points)
+
+dist(m,method="manhattan")
+
+set.seed(101)
+sampleiris <- iris[sample(1:150, 40),] # get samples from iris dataset
+
+# each observation has 4 variables, ie, they are interpreted as 4-D points
+distance   <- dist(sampleiris[,-5], method="euclidean") 
+cluster    <- hclust(distance, method="average")
+plot(cluster, hang=-1, label=sampleiris$Species)
+
+plot(as.dendrogram(cluster), edgePar=list(col="darkgreen", lwd=2), horiz=T) 
+
+str(as.dendrogram(cluster))
+
+cluster$labels[cluster$order]
+

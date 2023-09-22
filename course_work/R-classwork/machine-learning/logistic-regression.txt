@@ -1,0 +1,74 @@
+# logistic regression
+
+# reading the data
+df <- read.csv("Defaultdata.csv")
+
+library(caTools)
+
+# fixing the observations in training set and test set
+set.seed(123)
+
+# splitting the data set into ratio 0.80:0.20
+split <- sample.split(df$default, SplitRatio = 0.80)
+
+# creating training dataset
+trainingSet <- subset(df, split == TRUE)
+
+# creating test data set
+testSet <- subset(df, split == FALSE)
+
+library(caret)
+
+# control parameters
+objControl <- trainControl(method = "boot", 
+                           number = 2, 
+                           returnResamp = 'none', 
+                           summaryFunction = twoClassSummary, 
+                           classProbs = TRUE,
+                           savePredictions = TRUE)
+# model building using caret package
+set.seed(766)
+caretLogitModel <- train(trainingSet[, 2:4],
+                      trainingSet[, 1],
+                      method = 'glm',
+                      trControl = objControl,
+                      metric = "ROC")
+
+summary(caretLogitModel)
+
+# predicting the test set observations
+logitModelPred <- predict(caretLogitModel, testSet, type = "prob")
+logitModelPred <- logitModelPred[,2]
+
+# plot of probabilities
+plot(logitModelPred, 
+     main = "Scatterplot of Probabilities of Default (test data)", 
+     xlab = "Customer ID", ylab = "Predicted Probability of Default")
+# setting the cut-off probablity
+classify50 <- ifelse(logitModelPred > 0.5,"Yes","No")
+
+# ordering the levels
+classify50 <- ordered(classify50, levels = c("Yes", "No"))
+testSet$default <- ordered(testSet$default, levels = c("Yes", "No"))
+
+# confusion matrix
+cm <- table(Predicted = classify50, Actual = testSet$default)
+cm
+
+confusionMatrix(cm)
+
+# loading the package
+library(ROCR)
+
+PredLR <- predict(caretLogitModel, testSet,type = "prob")
+lgPredObj <- prediction((1-PredLR[,2]),testSet$default)
+lgPerfObj <- performance(lgPredObj, "tpr","fpr")
+# plotting ROC curve
+plot(lgPerfObj,main = "ROC Curve",col = 2,lwd = 2)
+abline(a = 0,b = 1,lwd = 2,lty = 3,col = "black")
+
+library(ROCR)
+# area under curve
+aucLR <- performance(lgPredObj, measure = "auc")
+aucLR <- aucLR@y.values[[1]]
+aucLR
