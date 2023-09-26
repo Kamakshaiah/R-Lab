@@ -97,7 +97,7 @@ makeCorpus <- function(abs){
 # head(adf)[, 1:3]
 # adf[, 'context']
 
-cleanCorpusAndMakeDF <- function(corpus, DF=FALSE, sparcity = 0.3){
+cleanCorpusAndMakeDF <- function(corpus, DF=FALSE, sparcity = NULL){
   abscorp <- VCorpus((VectorSource(t(corpus))))
   corp_ <- tm_map(abscorp, stripWhitespace)
   corp_ <- tm_map(corp_, content_transformer(tolower))
@@ -106,18 +106,25 @@ cleanCorpusAndMakeDF <- function(corpus, DF=FALSE, sparcity = 0.3){
   corp_ <- tm_map(corp_, removePunctuation)
   adtm <- DocumentTermMatrix(corp_)
   
-  if (DF | !is.null(sparcity)){
+  if (DF & !is.null(sparcity)){
     dataframe <- data.frame(as.matrix(removeSparseTerms(adtm, sparcity)))
     return(dataframe)
     print(dim(dataframe))
   } else {
-    print('check your arguments!')
+    dataframe <- data.frame(as.matrix(adtm))
+    return(dataframe)
   }
 }
 
-# dataframe <- cleanCorpusAndMakeDF(abs, DF=T, sparcity = 0.7)
-# dim(dataframe)
-# names(dataframe)
+dataframe <- cleanCorpusAndMakeDF(abs, DF=T)
+dim(dataframe)
+names(dataframe[, 71:75])
+dataframe_ <- dataframe[, 71:dim(dataframe)[2]]
+dim(dataframe_)
+head(dataframe_[, 4820:4824])
+
+# https://stackoverflow.com/questions/9856632/subset-rows-with-1-all-and-2-any-columns-larger-than-a-specific-value
+# subset(dataframe_, )
 
 removePreps <- function(dataframe, preps){
   names_ <- !names(dataframe) %in% preps
