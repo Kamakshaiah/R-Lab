@@ -6,6 +6,9 @@ cor(x, y) # pearson
 cor(x, y, method = 'spearman')
 cor(x, y, method = 'kendall')
 
+plot(x, y)
+scatter.smooth(x, y)
+
 head(USArrests)
 cor(USArrests) # multivariate 
 
