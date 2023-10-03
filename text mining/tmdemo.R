@@ -116,12 +116,12 @@ cleanCorpusAndMakeDF <- function(corpus, DF=FALSE, sparcity = NULL){
   }
 }
 
-dataframe <- cleanCorpusAndMakeDF(abs, DF=T)
-dim(dataframe)
-names(dataframe[, 71:75])
-dataframe_ <- dataframe[, 71:dim(dataframe)[2]]
-dim(dataframe_)
-head(dataframe_[, 4820:4824])
+# dataframe <- cleanCorpusAndMakeDF(abs, DF=T)
+# dim(dataframe)
+# names(dataframe[, 71:75])
+# dataframe_ <- dataframe[, 71:dim(dataframe)[2]]
+# dim(dataframe_)
+# head(dataframe_[, 4820:4824])
 
 # https://stackoverflow.com/questions/9856632/subset-rows-with-1-all-and-2-any-columns-larger-than-a-specific-value
 # subset(dataframe_, )
