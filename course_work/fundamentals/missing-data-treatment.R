@@ -61,3 +61,42 @@ median(as.matrix(dataf), na.rm = T) # [1] 0.2574737
 dataf[is.na(dataf)]  <- median(as.matrix(dataf), na.rm = T)
 dataf # median substitution
 
+head(dataf)
+
+# function
+missingDataSubstitute <- function(dataf, value = NULL){
+  
+  if(is.null(value)){
+    print("value can't be null")
+  } else if(value == 'mean'){
+    dataf[is.na(dataf)] <- mean(as.matrix(dataf), na.rm = T)
+    return(dataf)
+  } else if(value == 'median'){
+    dataf[is.na(dataf)] <- median(as.matrix(dataf), na.rm = T)
+    return(dataf)
+  } else if (is.numeric(value)){
+    dataf[is.na(dataf)] <- value
+    return(dataf)
+  } else {
+    print("Needs a valuable input for 'value' parameter")
+  }
+}
+
+# testing 
+
+dataf <- data.frame(matrix(rnorm(120), 30, 4))
+for(i in ridx){
+  for(j in cidx){
+    dataf[i, j] <- NA
+  }
+}
+
+head(dataf)
+head(missingDataSubstitute(dataf))
+head(missingDataSubstitute(dataf, value = 'a'))
+
+mean(as.matrix(dataf), na.rm = T)
+head(missingDataSubstitute(dataf, value = 'mean'))
+
+median(as.matrix(dataf), na.rm = T)
+head(missingDataSubstitute(dataf, value = 'median'))
